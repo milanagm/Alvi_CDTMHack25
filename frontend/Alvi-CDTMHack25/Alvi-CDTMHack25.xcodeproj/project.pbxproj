@@ -257,9 +257,11 @@
 				CODE_SIGN_ENTITLEMENTS = "Alvi-CDTMHack25/Alvi-CDTMHack25.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = V5G338H5V6;
+				DEVELOPMENT_TEAM = JK2Y5MQ26V;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "<key>NSCameraUsageDescription</key>\n<string>Wir benötigen Zugriff auf die Kamera, um Fotos zu machen.</string>";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "<key>NSPhotoLibraryUsageDescription</key>\n<string>Wir benötigen Zugriff auf Ihre Fotobibliothek, um ein Bild auszuwählen.</string>";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -287,9 +289,11 @@
 				CODE_SIGN_ENTITLEMENTS = "Alvi-CDTMHack25/Alvi-CDTMHack25.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = V5G338H5V6;
+				DEVELOPMENT_TEAM = JK2Y5MQ26V;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "<key>NSCameraUsageDescription</key>\n<string>Wir benötigen Zugriff auf die Kamera, um Fotos zu machen.</string>";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "<key>NSPhotoLibraryUsageDescription</key>\n<string>Wir benötigen Zugriff auf Ihre Fotobibliothek, um ein Bild auszuwählen.</string>";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
