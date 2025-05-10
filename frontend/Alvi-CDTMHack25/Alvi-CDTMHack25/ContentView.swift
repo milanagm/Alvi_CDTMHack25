@@ -18,13 +18,14 @@ let allTypes: Set = [
     HKQuantityType(.distanceWalkingRunning),
     HKQuantityType(.distanceWheelchair),
     HKQuantityType(.heartRate)
+    // blood pressure, weight, height,
 ]
 
 struct ContentView: View {
     @State var authenticated = false
     @State var trigger = false
 
-    @HealthKitQuery(.heartRate, timeRange: .currentYear)
+    @HealthKitQuery(.heartRate, timeRange: .last(months: 3))
     private var heartRateSamples
 
     var body: some View {
