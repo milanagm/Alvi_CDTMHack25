@@ -17,7 +17,7 @@ struct Alvi_CDTMHack25App: App {
 
     var body: some Scene {
         WindowGroup {
-            UploadView()
+            ContentView()
                 .spezi(appDelegate)
         }
     }
