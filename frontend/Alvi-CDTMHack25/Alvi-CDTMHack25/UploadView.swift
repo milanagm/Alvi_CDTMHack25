@@ -9,6 +9,7 @@ import SwiftUI
 import UIKit
 
 struct UploadView: View {
+    @State private var message = "Please upload your medical documents including vaccination pass, doctoral letters, etc.!"
     @State private var isCameraPresented = false
     @State private var isDocumentPickerPresented = false
     @State private var isImagePickerPresented = false
@@ -20,121 +21,115 @@ struct UploadView: View {
 
     var body: some View {
         VStack {
-            // Avatar in einem Kreis anzeigen
-            ZStack {
-                Circle()
-                    .fill(Color.blue)
-                    .frame(width: 150, height: 150)
-                
-                Image("Alvi_smiling") // Dein Avatar-Bild
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 120, height: 120)
-            }
+            ChatReplyBubble(
+                text: $message,
+                icon: Image("alvi-idle")
+            )
             .padding()
-            
-            // Sprechblase und Text
-            HStack {
-                Text("Help me to be your perfect assistant and gather some information...")
-                    .font(.title)
-                    .multilineTextAlignment(.center)
-                    .padding()
-                    .background(Color.gray.opacity(0.2))
-                    .cornerRadius(10)
-                    .frame(maxWidth: 250)
-                
-                Spacer()
-            }
-            .padding()
-            
+
             // Upload Status Message
             if let message = uploadMessage {
                 Text(message)
                     .foregroundColor(message.contains("success") ? .green : .red)
                     .padding()
             }
-            
+            Spacer()
             // Buttons
             VStack(spacing: 20) {
                 // Button 1: Take a photo
                 Button(action: {
                     showSheet = true
                 }) {
-                    Text("Capture Photo")
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
+                    HStack(spacing: 8) {
+                        Image(systemName: "camera")
+                        Text("Capture Photo")
+                    }
+                    .frame(maxWidth: .infinity)          // full-width
+                    .frame(height: 44)                   // standard height
+                    .background(Color(.systemGray6))
+                    .foregroundColor(.primary)
+                    .cornerRadius(10)
+                    .contentShape(Rectangle())
                 }
                 .sheet(isPresented: $showSheet) {
                     ImagePicker(selectedImage: self.$pickedImage) // hier pickedImage variable mit dem bild
+                }
+
+                // Button 3: Select picture (öffnet sofort die Fotogalerie)
+                Button(action: {
+                    isImagePickerPresented.toggle() // Bild-Auswahl Modal öffnen
+                }) {
+                    HStack(spacing: 8) {
+                        Image(systemName: "photo")
+                        Text("Choose Photo")
+                    }
+                    .frame(maxWidth: .infinity)          // full-width
+                    .frame(height: 44)                   // standard height
+                    .background(Color(.systemGray6))
+                    .foregroundColor(.primary)
+                    .cornerRadius(10)
+                    .contentShape(Rectangle())
                 }
 
                 // Button 2: Upload document
                 Button(action: {
                     isDocumentPickerPresented.toggle() // Dokumenten-Picker Modul öffnen
                 }) {
-                    Text("Upload document")
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.green)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                }
-                
-                // Button 3: Select picture (öffnet sofort die Fotogalerie)
-                Button(action: {
-                    isImagePickerPresented.toggle() // Bild-Auswahl Modal öffnen
-                }) {
-                    Text("Select picture")
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.purple)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
+                    HStack(spacing: 8) {
+                        Image(systemName: "doc")
+                        Text("Upload Document")
+                    }
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 44)
+                    .background(Color(.systemGray6))
+                    .foregroundColor(.primary)
+                    .cornerRadius(10)
+                    .contentShape(Rectangle())
                 }
             }
             .padding()
             .disabled(isUploading) // Schützt vor versehentlichen Doppelklicks während eines laufenden Uploads
 
-            if pickedImage != UIImage() { // prüft ob pickedImage != das leere Standardbild ist
-                // Bild-Vorschau
-                Image(uiImage: pickedImage)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 200)
-            }
-
-            if let docURL = selectedDocumentURL {
-                // Dokument-Vorschau (nur Dateiname und Icon)
-                HStack {
-                    Image(systemName: "doc.text")
-                        .font(.largeTitle)
-                    Text(docURL.lastPathComponent)
-                        .font(.headline)
+            ZStack {
+                if pickedImage != UIImage() { // prüft ob pickedImage != das leere Standardbild ist
+                    // Bild-Vorschau
+                    Image(uiImage: pickedImage)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 200)
                 }
-                .padding()
-            }
 
-            // Gemeinsamer Senden-Button
-            if pickedImage != UIImage() || selectedDocumentURL != nil {
-                Button(action: {
-                    if pickedImage != UIImage() {
-                        uploadImage(pickedImage)
-                    } else if let docURL = selectedDocumentURL {
-                        uploadDocument(docURL)
-                    }
-                }) {
+                if let docURL = selectedDocumentURL {
+                    // Dokument-Vorschau (nur Dateiname und Icon)
                     HStack {
-                        Image(systemName: "checkmark.circle.fill")
-                        Text("Upload")
+                        Image(systemName: "doc.text")
+                            .font(.largeTitle)
+                        Text(docURL.lastPathComponent)
+                            .font(.headline)
                     }
-                    .font(.title2)
-                    .foregroundColor(.white)
                     .padding()
-                    .background(Color.green)
-                    .cornerRadius(10)
+                }
+
+                // Gemeinsamer Senden-Button
+                if pickedImage != UIImage() || selectedDocumentURL != nil {
+                    Button(action: {
+                        if pickedImage != UIImage() {
+                            uploadImage(pickedImage)
+                        } else if let docURL = selectedDocumentURL {
+                            uploadDocument(docURL)
+                        }
+                    }) {
+                        HStack {
+                            Image(systemName: "square.and.arrow.up")
+                            Text("Upload")
+                        }
+                        .font(.title2)
+                        .padding()
+                        .background(.white)
+                        .foregroundColor(.black)
+                        .shadow(radius: 20)
+                        .cornerRadius(10)
+                    }
                 }
             }
         }
@@ -159,7 +154,7 @@ struct UploadView: View {
         isUploading = true
         uploadMessage = "Uploading image..."
         
-        guard let base64String = image.toBase64JPEG(compressionQuality: 0.8) else { // methode in UIImage
+        guard let base64String = image.toBase64JPEG(compressionQuality: 0.1) else { // methode in UIImage
             uploadMessage = "Failed to prepare image for upload"
             isUploading = false
             return
@@ -239,4 +234,8 @@ struct UploadView: View {
         }
         task.resume()
     }
+}
+
+#Preview {
+    UploadView()
 }

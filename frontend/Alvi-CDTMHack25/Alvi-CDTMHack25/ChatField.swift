@@ -12,7 +12,7 @@ struct ChatReplyBubble: View {
     let icon: Image         
 
     var iconSize: CGFloat = 50
-    var background: Color = Color(.systemGray5)
+    var background: Color = Color(.systemGray6)
 
     var body: some View {
         HStack(spacing: 10) {

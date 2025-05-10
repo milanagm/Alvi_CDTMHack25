@@ -18,6 +18,7 @@ struct WelcomeView: View {
                     text: $message,
                     icon: Image("alvi-idle")
                 )
+                .padding()
 
                 Spacer()
 
@@ -36,8 +37,8 @@ struct WelcomeView: View {
                         Text("Continue")
                             .frame(maxWidth: .infinity)
                             .frame(height: 44)
-                            .background(Color.white)
-                            .foregroundColor(.black)
+                            .background(Color(.systemGray6))
+                            .foregroundColor(.primary)
                             .cornerRadius(10)
                             .padding()
                     }
