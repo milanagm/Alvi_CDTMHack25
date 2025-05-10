@@ -4,8 +4,11 @@ import UIKit
 
 struct CameraView: View {
     @Binding var isImagePicked: Bool
-    @Binding var pickedImage: UIImage?
-    
+    @Binding var pickedImage: UIImage
+
+    @State private var image = UIImage()
+    @State private var showSheet = false
+
     @State private var captureSession: AVCaptureSession?
     @State private var photoOutput: AVCapturePhotoOutput!
     @State private var previewLayer: AVCaptureVideoPreviewLayer!
@@ -14,6 +17,17 @@ struct CameraView: View {
     
     var body: some View {
         VStack {
+            Button(action: {
+                print(self.image)
+            }) {
+                Text("Print photo")
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+            }
+
             // Kamera-Vorschau
             if previewLayer != nil {
                 CameraPreviewLayer(previewLayer: previewLayer)
@@ -22,7 +36,7 @@ struct CameraView: View {
             
             // Button zum Aufnehmen eines Fotos
             Button(action: {
-                capturePhoto()
+                showSheet = true
             }) {
                 Text("Capture Photo")
                     .frame(maxWidth: .infinity)
@@ -31,8 +45,10 @@ struct CameraView: View {
                     .foregroundColor(.white)
                     .cornerRadius(10)
             }
-            .padding()
-            
+            .sheet(isPresented: $showSheet) {
+                ImagePicker(selectedImage: self.$image)
+            }
+
             // Button für den Image Picker (Foto auswählen)
             Button(action: {
                 isImagePickerPresented.toggle()
@@ -108,9 +124,9 @@ struct CameraView: View {
 // Coordinator zum Verarbeiten des aufgenommenen Fotos
 class CameraCoordinator: NSObject, AVCapturePhotoCaptureDelegate {
     @Binding var isImagePicked: Bool
-    @Binding var pickedImage: UIImage?
+    @Binding var pickedImage: UIImage
 
-    init(isImagePicked: Binding<Bool>, pickedImage: Binding<UIImage?>) {
+    init(isImagePicked: Binding<Bool>, pickedImage: Binding<UIImage>) {
         _isImagePicked = isImagePicked
         _pickedImage = pickedImage
     }
@@ -138,7 +154,7 @@ struct CameraPreviewLayer: UIViewRepresentable {
 }
 
 struct ImagePickerView: View {
-    @Binding var selectedImage: UIImage?
+    @Binding var selectedImage: UIImage
     @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
@@ -148,7 +164,7 @@ struct ImagePickerView: View {
 }
 
 struct ImagePickerController: UIViewControllerRepresentable {
-    @Binding var selectedImage: UIImage?
+    @Binding var selectedImage: UIImage
     @Environment(\.presentationMode) var presentationMode
 
     func makeUIViewController(context: Context) -> UIImagePickerController {
@@ -165,10 +181,10 @@ struct ImagePickerController: UIViewControllerRepresentable {
     }
 
     class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-        @Binding var selectedImage: UIImage?
+        @Binding var selectedImage: UIImage
         var presentationMode: Binding<PresentationMode>
 
-        init(selectedImage: Binding<UIImage?>, presentationMode: Binding<PresentationMode>) {
+        init(selectedImage: Binding<UIImage>, presentationMode: Binding<PresentationMode>) {
             _selectedImage = selectedImage
             self.presentationMode = presentationMode
         }
