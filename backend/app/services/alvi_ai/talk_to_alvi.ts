@@ -1,4 +1,5 @@
 import {chatNoAttachments} from '../../services/google_cloud/gemini_api';
+import {get_table, read_file_as_base64} from "@/app/services/supabase/supabase";
 
 
 /**
@@ -19,7 +20,7 @@ export async function talk_to_alvi(
     }): Promise<object | string> {
 
 
-    // 2) Send image to OpenAI API to identify requested information
+    // 2) Send image to API to identify requested information
     const alvi_response = await chatNoAttachments(instruction, "gemini-2.0-flash-lite", 1, true, output_json) as {
         message: string
     };
