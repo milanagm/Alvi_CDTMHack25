@@ -6,12 +6,15 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct UploadView: View {
     @State private var isCameraPresented = false
     @State private var isDocumentPickerPresented = false
     @State private var isImagePickerPresented = false  // Bild-Picker direkt hier steuern
-    @State private var pickedImage: UIImage? = nil
+    @State private var pickedImage: UIImage = UIImage()
+
+    @State private var showSheet = false
 
     var body: some View {
         VStack {
@@ -44,18 +47,32 @@ struct UploadView: View {
             
             // Buttons
             VStack(spacing: 20) {
+                Button(action: {
+                    print(self.pickedImage.toBase64JPEG()?.count)
+                }) {
+                    Text("Upload")
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.yellow)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+
                 // Button 1: Take a photo
                 Button(action: {
-                    isCameraPresented.toggle() // Kamera Modal öffnen
+                    showSheet = true
                 }) {
-                    Text("Take a photo")
+                    Text("Capture Photo")
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(Color.blue)
                         .foregroundColor(.white)
                         .cornerRadius(10)
                 }
-                
+                .sheet(isPresented: $showSheet) {
+                    ImagePicker(selectedImage: self.$pickedImage)
+                }
+
                 // Button 2: Upload document
                 Button(action: {
                     isDocumentPickerPresented.toggle() // Dokumenten-Picker Modal öffnen
