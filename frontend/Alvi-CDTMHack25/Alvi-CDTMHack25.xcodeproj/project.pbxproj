@@ -6,6 +6,14 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		BB9B3B442DCF61FE004F57CE /* SpeziHealthKit in Frameworks */ = {isa = PBXBuildFile; productRef = BB9B3B432DCF61FE004F57CE /* SpeziHealthKit */; };
+		BB9B3B462DCF61FE004F57CE /* SpeziHealthKitBulkExport in Frameworks */ = {isa = PBXBuildFile; productRef = BB9B3B452DCF61FE004F57CE /* SpeziHealthKitBulkExport */; };
+		BB9B3B482DCF61FE004F57CE /* SpeziHealthKitUI in Frameworks */ = {isa = PBXBuildFile; productRef = BB9B3B472DCF61FE004F57CE /* SpeziHealthKitUI */; };
+		BB9B3B4E2DCF6F91004F57CE /* SpeziQuestionnaire in Frameworks */ = {isa = PBXBuildFile; productRef = BB9B3B4D2DCF6F91004F57CE /* SpeziQuestionnaire */; };
+		BB9B3B502DCF6F91004F57CE /* SpeziTimedWalkTest in Frameworks */ = {isa = PBXBuildFile; productRef = BB9B3B4F2DCF6F91004F57CE /* SpeziTimedWalkTest */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		BB1DD8CB2DCEC33A00CF7774 /* Alvi-CDTMHack25.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Alvi-CDTMHack25.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -23,6 +31,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB9B3B4E2DCF6F91004F57CE /* SpeziQuestionnaire in Frameworks */,
+				BB9B3B482DCF61FE004F57CE /* SpeziHealthKitUI in Frameworks */,
+				BB9B3B502DCF6F91004F57CE /* SpeziTimedWalkTest in Frameworks */,
+				BB9B3B442DCF61FE004F57CE /* SpeziHealthKit in Frameworks */,
+				BB9B3B462DCF61FE004F57CE /* SpeziHealthKitBulkExport in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +78,11 @@
 			);
 			name = "Alvi-CDTMHack25";
 			packageProductDependencies = (
+				BB9B3B432DCF61FE004F57CE /* SpeziHealthKit */,
+				BB9B3B452DCF61FE004F57CE /* SpeziHealthKitBulkExport */,
+				BB9B3B472DCF61FE004F57CE /* SpeziHealthKitUI */,
+				BB9B3B4D2DCF6F91004F57CE /* SpeziQuestionnaire */,
+				BB9B3B4F2DCF6F91004F57CE /* SpeziTimedWalkTest */,
 			);
 			productName = "Alvi-CDTMHack25";
 			productReference = BB1DD8CB2DCEC33A00CF7774 /* Alvi-CDTMHack25.app */;
@@ -96,6 +114,8 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				BB1DD8D92DCEC5B900CF7774 /* XCRemoteSwiftPackageReference "ref-OpenHealthCardKit" */,
+				BB9B3B422DCF61FE004F57CE /* XCRemoteSwiftPackageReference "SpeziHealthKit" */,
+				BB9B3B4C2DCF6F91004F57CE /* XCRemoteSwiftPackageReference "SpeziQuestionnaire" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = BB1DD8CC2DCEC33A00CF7774 /* Products */;
@@ -262,6 +282,9 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "<key>NSCameraUsageDescription</key>\n<string>Wir benötigen Zugriff auf die Kamera, um Fotos zu machen.</string>";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "<key>NSPhotoLibraryUsageDescription</key>\n<string>Wir benötigen Zugriff auf Ihre Fotobibliothek, um ein Bild auszuwählen.</string>";
+				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "This is a medical app.";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "This is a medical app.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "This is a medical app.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -294,6 +317,9 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "<key>NSCameraUsageDescription</key>\n<string>Wir benötigen Zugriff auf die Kamera, um Fotos zu machen.</string>";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "<key>NSPhotoLibraryUsageDescription</key>\n<string>Wir benötigen Zugriff auf Ihre Fotobibliothek, um ein Bild auszuwählen.</string>";
+				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "This is a medical app.";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "This is a medical app.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "This is a medical app.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -345,7 +371,51 @@
 				minimumVersion = 5.11.0;
 			};
 		};
+		BB9B3B422DCF61FE004F57CE /* XCRemoteSwiftPackageReference "SpeziHealthKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/StanfordSpezi/SpeziHealthKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.3;
+			};
+		};
+		BB9B3B4C2DCF6F91004F57CE /* XCRemoteSwiftPackageReference "SpeziQuestionnaire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/StanfordSpezi/SpeziQuestionnaire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BB9B3B432DCF61FE004F57CE /* SpeziHealthKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BB9B3B422DCF61FE004F57CE /* XCRemoteSwiftPackageReference "SpeziHealthKit" */;
+			productName = SpeziHealthKit;
+		};
+		BB9B3B452DCF61FE004F57CE /* SpeziHealthKitBulkExport */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BB9B3B422DCF61FE004F57CE /* XCRemoteSwiftPackageReference "SpeziHealthKit" */;
+			productName = SpeziHealthKitBulkExport;
+		};
+		BB9B3B472DCF61FE004F57CE /* SpeziHealthKitUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BB9B3B422DCF61FE004F57CE /* XCRemoteSwiftPackageReference "SpeziHealthKit" */;
+			productName = SpeziHealthKitUI;
+		};
+		BB9B3B4D2DCF6F91004F57CE /* SpeziQuestionnaire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BB9B3B4C2DCF6F91004F57CE /* XCRemoteSwiftPackageReference "SpeziQuestionnaire" */;
+			productName = SpeziQuestionnaire;
+		};
+		BB9B3B4F2DCF6F91004F57CE /* SpeziTimedWalkTest */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BB9B3B4C2DCF6F91004F57CE /* XCRemoteSwiftPackageReference "SpeziQuestionnaire" */;
+			productName = SpeziTimedWalkTest;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = BB1DD8C32DCEC33A00CF7774 /* Project object */;
 }
