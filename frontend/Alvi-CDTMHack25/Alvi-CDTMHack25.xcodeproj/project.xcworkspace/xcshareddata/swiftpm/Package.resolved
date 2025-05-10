@@ -1,0 +1,42 @@
+{
+  "originHash" : "3e2e9147e32f52661192c0232a266169bc10a508f8d4fd6412840ff272232681",
+  "pins" : [
+    {
+      "identity" : "asn1kit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/gematik/ASN1Kit.git",
+      "state" : {
+        "revision" : "09df8959217517065d7022061cb36a4915430150",
+        "version" : "1.3.1"
+      }
+    },
+    {
+      "identity" : "commandant",
+      "kind" : "remoteSourceControl",
+      "location" : "http://github.com/Carthage/Commandant",
+      "state" : {
+        "revision" : "a1671cf728db837cf5ec1980a80d276bbba748f6",
+        "version" : "0.18.0"
+      }
+    },
+    {
+      "identity" : "openssl-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/gematik/OpenSSL-Swift",
+      "state" : {
+        "revision" : "81c773d871deeae3815b5fde47d45a23a4e6c853",
+        "version" : "4.4.1"
+      }
+    },
+    {
+      "identity" : "ref-openhealthcardkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/gematik/ref-OpenHealthCardKit",
+      "state" : {
+        "revision" : "1831d7e1ee5725c1dfe8d44a4c8e044c17f79494",
+        "version" : "5.11.0"
+      }
+    }
+  ],
+  "version" : 3
+}
