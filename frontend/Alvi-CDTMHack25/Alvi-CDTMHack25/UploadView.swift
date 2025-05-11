@@ -9,7 +9,7 @@ import SwiftUI
 import UIKit
 
 struct UploadView: View {
-    @State private var message = "Please upload your medical documents including vaccination pass, doctoral letters, etc.!"
+    @State private var message = "Got it, thank you for sharing your heart rate data, Milana! 📊 I see a little spike in the evenings — I’ll make sure the doctor knows so they can take a closer look tomorrow 💡 In the meantime, do you happen to have any past medical letters or reports you could upload? Just in case there’s helpful context! 📄✨"
     @State private var isCameraPresented = false
     @State private var isDocumentPickerPresented = false
     @State private var isImagePickerPresented = false
@@ -18,6 +18,13 @@ struct UploadView: View {
     @State private var selectedDocumentURL: URL? = nil // nil wenn noch keine Datei gewählt 
     @State private var uploadMessage: String? = nil
     @State private var isUploading = false
+
+    var messages: [String] = [
+        "Thanks a bunch, Milana! 🥰 I see the letter from your cardiologist mentioning 'Arterielle Hypertonie' — that’s super helpful. Do you happen to have any other medical letters or documents lying around? Anything else you upload now could help the doctor prepare even better 📄✨",
+        "Thank you Milana 🌟 This second letter gives great context — I see it mentions 'Koronare Zweigefäßerkrankung' from last year. You're doing such a thorough job! Before we wrap up, could you snap a quick picture of your vaccination pass if you have it handy? That way, the doctor can check if anything’s missing 💉📔",
+        "Lovely, thank you Milana! 🌼 Your vaccination pass looks perfectly up to date — gold star from me ⭐️ That’s all I needed for now. If you remember anything else later, feel free to pop back in. Otherwise, the doctor will see you tomorrow at 2pm — all prepped and ready! 🧚‍♀️"
+    ]
+    @State private var messageIndex: Int = 0
 
     var body: some View {
         VStack {
@@ -30,11 +37,60 @@ struct UploadView: View {
             // Upload Status Message
             if let message = uploadMessage {
                 Text(message)
-                    .foregroundColor(message.contains("success") ? .green : .red)
+                    .foregroundColor(message.contains("success") ? .primary : .primary)
                     .padding()
             }
             Spacer()
             // Buttons
+
+            ZStack {
+                if pickedImage != UIImage() { // prüft ob pickedImage != das leere Standardbild ist
+                    // Bild-Vorschau
+                    Image(uiImage: pickedImage)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 200)
+                }
+
+                if let docURL = selectedDocumentURL {
+                    // Dokument-Vorschau (nur Dateiname und Icon)
+                    HStack {
+                        Image(systemName: "doc.text")
+                            .font(.largeTitle)
+                        Text(docURL.lastPathComponent)
+                            .font(.headline)
+                    }
+                    .padding()
+                }
+
+                // Gemeinsamer Senden-Button
+                if pickedImage != UIImage() || selectedDocumentURL != nil {
+                    Button(action: {
+                        if pickedImage != UIImage() {
+                            uploadImage(pickedImage)
+                        } else if let docURL = selectedDocumentURL {
+                            uploadDocument(docURL)
+                        }
+                    }) {
+                        HStack {
+                            if isUploading {
+                                ProgressView()
+                            } else {
+                                Image(systemName: "square.and.arrow.up")
+                                Text("Upload")
+                            }
+                        }
+                        .padding()
+                        .background(.white)
+                        .foregroundColor(.black)
+                        .shadow(radius: 20)
+                        .cornerRadius(10)
+                    }
+                }
+            }
+
+            Spacer()
+
             VStack(spacing: 20) {
                 // Button 1: Take a photo
                 Button(action: {
@@ -89,49 +145,6 @@ struct UploadView: View {
             }
             .padding()
             .disabled(isUploading) // Schützt vor versehentlichen Doppelklicks während eines laufenden Uploads
-
-            ZStack {
-                if pickedImage != UIImage() { // prüft ob pickedImage != das leere Standardbild ist
-                    // Bild-Vorschau
-                    Image(uiImage: pickedImage)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 200)
-                }
-
-                if let docURL = selectedDocumentURL {
-                    // Dokument-Vorschau (nur Dateiname und Icon)
-                    HStack {
-                        Image(systemName: "doc.text")
-                            .font(.largeTitle)
-                        Text(docURL.lastPathComponent)
-                            .font(.headline)
-                    }
-                    .padding()
-                }
-
-                // Gemeinsamer Senden-Button
-                if pickedImage != UIImage() || selectedDocumentURL != nil {
-                    Button(action: {
-                        if pickedImage != UIImage() {
-                            uploadImage(pickedImage)
-                        } else if let docURL = selectedDocumentURL {
-                            uploadDocument(docURL)
-                        }
-                    }) {
-                        HStack {
-                            Image(systemName: "square.and.arrow.up")
-                            Text("Upload")
-                        }
-                        .font(.title2)
-                        .padding()
-                        .background(.white)
-                        .foregroundColor(.black)
-                        .shadow(radius: 20)
-                        .cornerRadius(10)
-                    }
-                }
-            }
         }
 
         // here: image-variable gets a value
@@ -152,8 +165,8 @@ struct UploadView: View {
     // uploading functions -> they call the sendToAPI function
     private func uploadImage(_ image: UIImage) {
         isUploading = true
-        uploadMessage = "Uploading image..."
-        
+        uploadMessage = ""
+
         guard let base64String = image.toBase64JPEG(compressionQuality: 0.1) else { // methode in UIImage
             uploadMessage = "Failed to prepare image for upload"
             isUploading = false
@@ -190,7 +203,7 @@ struct UploadView: View {
         }
         
         let requestBody: [String: Any] = [
-            "patientId": "6a53a6cb-86b8-41d1-bc28-84e8de22cd1d",
+            "patientId": "81d40b06-601d-4f43-91bf-539933e1f6a6",
             "file_data": [
                 "file_name": fileName,
                 "file_type": fileType,
@@ -226,6 +239,12 @@ struct UploadView: View {
                         // Reset the image/document after successful upload
                         pickedImage = UIImage()
                         selectedDocumentURL = nil
+
+                        message = messages[messageIndex]
+                        messageIndex += 1
+                        if messageIndex > 2 {
+                            messageIndex = 0
+                        }
                     } else {
                         uploadMessage = "Upload failed with status code: \(httpResponse.statusCode)"
                     }

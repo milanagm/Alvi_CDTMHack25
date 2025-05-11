@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct WelcomeView: View {
-    @State private var message = "Hi, I'm Alvi! Your companion for your appointment tomorrow at 13:30. \nStart by tapping your European Health Insurance card on the back of your phone."
+    @State private var message = "Thanks for sharing that, Milana 💛 Sounds like you're doing exactly the right thing by getting it checked out. To get started, could you please tap your insurance card with your phone now? That way I can read the info and we’re one step closer to being all set! 🪄📲"
     @State private var showBottomButton = false
 
     var body: some View {
@@ -23,7 +23,7 @@ struct WelcomeView: View {
                 Spacer()
 
                 Button(action: {
-                    message = "Thank you, Sven! Next let's gather all your medical documents"
+                    message = "Perfect, thank you Milana! ✨ I see you're with Techniker Krankenkasse — everything synced just fine 🧾 Since you mentioned your heart has been racing in the evenings, could you share any heart rate data from your Apple Watch or Health app? That might really help the doctor! ❤️⌚"
                     showBottomButton = true
                 }) {
                     RoundedRectangle(cornerRadius: 10)
@@ -32,7 +32,7 @@ struct WelcomeView: View {
 
                 if showBottomButton {
                     NavigationLink {
-                        UploadView()
+                        ContentView()
                     } label: {
                         Text("Continue")
                             .frame(maxWidth: .infinity)
